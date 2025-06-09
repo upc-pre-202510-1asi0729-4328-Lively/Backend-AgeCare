@@ -1,4 +1,17 @@
 package pe.edu.upc.center.agecare.residents.domain.model.commands;
 
-public record CreateResidentCommand() {
-}
+
+import pe.edu.upc.center.agecare.residents.domain.model.valueobjects.FullName;
+import pe.edu.upc.center.agecare.residents.domain.model.valueobjects.ReceiptId;
+import pe.edu.upc.center.agecare.residents.domain.model.valueobjects.Address;
+
+import java.util.Date;
+
+public record CreateResidentCommand(
+        String dni,
+        FullName fullName,
+        Address address,
+        Date birthDate,
+        String gender,
+        ReceiptId receipt
+) {}
