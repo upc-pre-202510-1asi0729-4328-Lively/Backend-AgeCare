@@ -1,4 +1,4 @@
-package pe.edu.upc.center.agecare.appointments.domain.model.valueobjects;Add commentMore actions
+package pe.edu.upc.center.agecare.appointments.domain.model.valueobjects;
 
 import jakarta.persistence.Embeddable;
 import java.time.LocalDate;

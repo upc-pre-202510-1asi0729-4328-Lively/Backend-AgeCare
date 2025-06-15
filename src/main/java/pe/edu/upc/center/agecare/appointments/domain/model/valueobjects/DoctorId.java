@@ -1,6 +1,6 @@
 package pe.edu.upc.center.agecare.appointments.domain.model.valueobjects;
 
-import jakarta.persistence.Embeddable;Add commentMore actions
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public record DoctorId(Long doctorId) {

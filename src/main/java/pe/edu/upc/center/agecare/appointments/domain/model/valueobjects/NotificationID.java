@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 public record NotificationId(Long notificationId) {
 
     public NotificationId() {
-        this(null);Add commentMore actions
+        this(null);
     }
 
     public NotificationId {
