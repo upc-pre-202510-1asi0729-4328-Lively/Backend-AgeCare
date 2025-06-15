@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.center.agecare.appointments.domain.model.aggregates.Appointment;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAllAppointmentsQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByIdQuery;
-import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByResidentId;
+import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByResidentIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentQueryService;
 import pe.edu.upc.center.agecare.appointments.infrastructure.persistence.jpa.repositories.AppointmentRepository;
 
@@ -31,7 +31,7 @@ public class AppointmentQueryServiceImpl implements AppointmentQueryService {
   }
 
   @Override
-  public List<Appointment> handle(GetAppointmentByResidentId query) {
-    return appointmentRepository.findByResidentId(query.residentId());
+  public List<Appointment> handle(GetAppointmentByResidentIdQuery query) {
+    return appointmentRepository.findByResidentId_ResidentId(query.residentId());
   }
 }

@@ -8,11 +8,11 @@ public class AppointmentResourceFromEntityAssembler {
     public static AppointmentResource toResourceFromEntity(Appointment entity) {
         return new AppointmentResource(
                 entity.getId(),
-                entity.getResidentId(),
-                entity.getDoctorId(),
+                entity.getResidentId().residentId(),
+                entity.getDoctorId().doctorId(),
                 entity.getDateTime().date(),
                 entity.getDateTime().time(),
-                entity.getStatus()
+                entity.getStatus().status()
         );
     }
 }

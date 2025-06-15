@@ -9,4 +9,4 @@ public record CreateAppointmentResource(
     LocalDate date,
     LocalTime time,
     String status
-)
+){}

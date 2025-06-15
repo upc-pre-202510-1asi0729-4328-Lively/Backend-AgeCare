@@ -21,7 +21,7 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
 
   @Override
   public Long handle(CreateAppointmentCommand command) {
-    if (this.appointmentRepository.existsByDateTimeAndDateTimeTime(command.dateTime().date(), command.dateTime().time())) {
+    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_Time(command.dateTime().date(), command.dateTime().time())) {
       throw new IllegalArgumentException("Appointment with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
     }
 
@@ -43,7 +43,7 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
       throw new IllegalArgumentException("Appointment with id " + appointmentId + " does not exist");
     }
 
-    if (this.appointmentRepository.existsByDateTimeAndDateTimeTime(command.dateTime().date(), command.dateTime().time())) {
+    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_Time(command.dateTime().date(), command.dateTime().time())) {
       throw new IllegalArgumentException("Appointment with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
     }
 

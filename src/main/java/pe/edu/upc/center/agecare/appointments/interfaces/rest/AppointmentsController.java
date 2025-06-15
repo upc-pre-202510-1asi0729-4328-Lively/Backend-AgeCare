@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.agecare.appointments.domain.model.commands.DeleteAppointmentCommand;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAllAppointmentsQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByIdQuery;
-import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentsByResidentIdQuery;
+import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByResidentIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentCommandService;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentQueryService;
 import pe.edu.upc.center.agecare.appointments.interfaces.rest.resources.AppointmentResource;
@@ -79,7 +79,7 @@ public class AppointmentsController {
 
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> updateAppointment(@PathVariable Long appointmentId, @RequestBody AppointmentResource resource) {
-        var updateCommand = UpdateAppointmentCommandFromResourceAssembler.toCommandFromResource(appointmentId, resource);
+        var updateCommand = UpdateAppointmentCommandFromResourceAssembler.toCommandFromResource(resource);
         var optionalAppointment = appointmentCommandService.handle(updateCommand);
 
         if (optionalAppointment.isEmpty()) {
@@ -98,16 +98,20 @@ public class AppointmentsController {
     }
 
     @GetMapping("/searchByResidentId")
-    public ResponseEntity<AppointmentResource> getAppointmentByResidentId(@RequestParam Long residentId) {
-        var query = new GetAppointmentsByResidentIdQuery(residentId);
-        var optionalAppointment = appointmentQueryService.handle(query);
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByResidentId(@RequestParam Long residentId) {
+        var query = new GetAppointmentByResidentIdQuery(residentId);
+        var appointments = appointmentQueryService.handle(query);
 
-        if (optionalAppointment.isEmpty()) {
+        if (appointments.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        var resource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(optionalAppointment.get());
-        return ResponseEntity.ok(resource);
+        var resources = appointments.stream()
+                .map(AppointmentResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+
+        return ResponseEntity.ok(resources);
     }
+
 
 }
