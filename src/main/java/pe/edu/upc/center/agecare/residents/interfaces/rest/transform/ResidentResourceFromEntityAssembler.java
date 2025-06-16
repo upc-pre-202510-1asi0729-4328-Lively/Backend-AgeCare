@@ -5,18 +5,23 @@ import pe.edu.upc.center.agecare.residents.interfaces.rest.resources.ResidentRes
 
 public class ResidentResourceFromEntityAssembler {
     public static ResidentResource toResourceFromEntity(Resident resident) {
+        var fullName = resident.getFullName();
+        var address = resident.getAddress();
+        var receipt = resident.getReceipt();
+
         return new ResidentResource(
+                resident.getId(),
                 resident.getDni(),
-                resident.getFullName().firstName(),
-                resident.getFullName().lastName(),
-                resident.getAddress().city(),
-                resident.getAddress().state(),
-                resident.getAddress().country(),
-                resident.getAddress().street(),
-                resident.getAddress().zipCode(),
+                fullName != null ? fullName.firstName() : null,
+                fullName != null ? fullName.lastName() : null,
+                address != null ? address.city() : null,
+                address != null ? address.state() : null,
+                address != null ? address.country() : null,
+                address != null ? address.street() : null,
+                address != null ? address.zipCode() : null,
                 resident.getBirthDate(),
                 resident.getGender(),
-                resident.getReceipt().receiptId()
+                receipt != null ? receipt.receiptId() : null
         );
     }
 }
