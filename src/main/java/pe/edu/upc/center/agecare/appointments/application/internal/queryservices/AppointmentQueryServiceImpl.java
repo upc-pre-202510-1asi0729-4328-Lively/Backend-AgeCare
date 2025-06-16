@@ -5,6 +5,7 @@ import pe.edu.upc.center.agecare.appointments.domain.model.aggregates.Appointmen
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAllAppointmentsQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByResidentIdQuery;
+import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByDoctorIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentQueryService;
 import pe.edu.upc.center.agecare.appointments.infrastructure.persistence.jpa.repositories.AppointmentRepository;
 
@@ -34,4 +35,10 @@ public class AppointmentQueryServiceImpl implements AppointmentQueryService {
   public List<Appointment> handle(GetAppointmentByResidentIdQuery query) {
     return appointmentRepository.findByResidentId_ResidentId(query.residentId());
   }
+
+  @Override
+  public List<Appointment> handle(GetAppointmentByDoctorIdQuery query) {
+    return appointmentRepository.findByDoctorId_DoctorId(query.doctorId());
+  }
+
 }

@@ -9,6 +9,7 @@ import pe.edu.upc.center.agecare.appointments.domain.model.commands.DeleteAppoin
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAllAppointmentsQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByResidentIdQuery;
+import pe.edu.upc.center.agecare.appointments.domain.model.queries.GetAppointmentByDoctorIdQuery;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentCommandService;
 import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentQueryService;
 import pe.edu.upc.center.agecare.appointments.interfaces.rest.resources.AppointmentResource;
@@ -98,7 +99,7 @@ public class AppointmentsController {
     }
 
     @GetMapping("/searchByResidentId")
-    public ResponseEntity<List<AppointmentResource>> getAppointmentsByResidentId(@RequestParam Long residentId) {
+    public ResponseEntity<List<AppointmentResource>> getAppointmentByResidentId(@RequestParam Long residentId) {
         var query = new GetAppointmentByResidentIdQuery(residentId);
         var appointments = appointmentQueryService.handle(query);
 
@@ -113,5 +114,19 @@ public class AppointmentsController {
         return ResponseEntity.ok(resources);
     }
 
+    @GetMapping("/searchByDoctorId")
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {
+        var query = new GetAppointmentByDoctorIdQuery(doctorId);
+        var appointments = appointmentQueryService.handle(query);
 
+        if (appointments.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var resources = appointments.stream()
+                .map(AppointmentResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+
+        return ResponseEntity.ok(resources);
+    }
 }
