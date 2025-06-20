@@ -1,12 +1,16 @@
 package pe.edu.upc.center.agecare.shared.infrastructure.persistence.jpa.configuration.strategy;
 
+import io.github.encryptorcode.pluralize.Pluralize;
+import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
-import static io.github.encryptorcode.pluralize.Pluralize.pluralize;
+/**
+ * Estrategia de nomenclatura que convierte los nombres de las tablas en plural
+ * y utiliza snake_case para los nombres de columnas.
+ */
+public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy extends CamelCaseToUnderscoresNamingStrategy {
 
-public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy implements PhysicalNamingStrategy {
     @Override
     public Identifier toPhysicalCatalogName(Identifier identifier, JdbcEnvironment jdbcEnvironment) {
         return this.toSnakeCase(identifier);
@@ -19,7 +23,6 @@ public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy implements Physi
 
     @Override
     public Identifier toPhysicalTableName(Identifier identifier, JdbcEnvironment jdbcEnvironment) {
-
         return this.toSnakeCase(this.toPlural(identifier));
     }
 
@@ -46,7 +49,7 @@ public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy implements Physi
     }
 
     private Identifier toPlural(final Identifier identifier) {
-        final String newName = pluralize(identifier.getText());
+        final String newName = Pluralize.plural(identifier.getText());
         return Identifier.toIdentifier(newName);
     }
 }
