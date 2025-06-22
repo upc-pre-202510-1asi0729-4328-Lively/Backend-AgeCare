@@ -9,6 +9,8 @@ import pe.edu.upc.center.agecare.appointments.domain.services.AppointmentCommand
 import pe.edu.upc.center.agecare.appointments.infrastructure.persistence.jpa.repositories.AppointmentRepository;
 
 import java.util.Optional;
+import java.time.LocalTime;
+
 
 @Service
 public class AppointmentCommandServiceImpl implements AppointmentCommandService {
@@ -21,8 +23,13 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
 
   @Override
   public Long handle(CreateAppointmentCommand command) {
-    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_Time(command.dateTime().date(), command.dateTime().time())) {
-      throw new IllegalArgumentException("Appointment with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
+    if (command.dateTime().time().isBefore(LocalTime.of(8, 0)) ||
+            command.dateTime().time().isAfter(LocalTime.of(19, 0))) {
+      throw new IllegalArgumentException("Appointments can only be registered between 08:00 and 20:00.");
+    }
+
+    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_TimeAndDoctorId_DoctorId(command.dateTime().date(), command.dateTime().time(), command.doctorId().doctorId())) {
+      throw new IllegalArgumentException("Appointment with the doctor "+ command.doctorId().doctorId() +" with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
     }
 
     Appointment appointment = new Appointment(command);
@@ -43,8 +50,8 @@ public class AppointmentCommandServiceImpl implements AppointmentCommandService 
       throw new IllegalArgumentException("Appointment with id " + appointmentId + " does not exist");
     }
 
-    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_Time(command.dateTime().date(), command.dateTime().time())) {
-      throw new IllegalArgumentException("Appointment with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
+    if (this.appointmentRepository.existsByDateTime_DateAndDateTime_TimeAndDoctorId_DoctorId(command.dateTime().date(), command.dateTime().time(), command.doctorId().doctorId())) {
+      throw new IllegalArgumentException("Appointment with the doctor "+ command.doctorId().doctorId() +" with date " + command.dateTime().date() + " and time " + command.dateTime().time() + " already exists");
     }
 
     var appointmentToUpdate = this.appointmentRepository.findById(appointmentId).get();
