@@ -6,5 +6,4 @@ import pe.edu.upc.center.agecare.users.domain.model.aggregates.FamilyMember;
 
 @Repository
 public interface FamilyMemberRepository extends JpaRepository<FamilyMember, Long> {
-    // Consultas adicionales si necesitas buscar por linkedResidentId, etc.
 }

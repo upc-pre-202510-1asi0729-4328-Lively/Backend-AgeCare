@@ -6,5 +6,4 @@ import pe.edu.upc.center.agecare.users.domain.model.aggregates.Doctor;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
-    // Consultas específicas de Doctor si se requiere
 }

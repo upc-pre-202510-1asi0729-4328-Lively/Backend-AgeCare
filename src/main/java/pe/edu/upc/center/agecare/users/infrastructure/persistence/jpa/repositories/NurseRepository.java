@@ -6,5 +6,4 @@ import pe.edu.upc.center.agecare.users.domain.model.entities.Nurse;
 
 @Repository
 public interface NurseRepository extends JpaRepository<Nurse, Long> {
-    // Consultas para buscar por ward, registrationNumber, etc.
 }

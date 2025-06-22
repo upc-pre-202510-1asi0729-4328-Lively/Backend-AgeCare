@@ -1,10 +1,9 @@
 package pe.edu.upc.center.agecare.users.domain.model.aggregates;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import pe.edu.upc.center.agecare.users.domain.model.valueobjects.ContactInfo;
+import pe.edu.upc.center.agecare.users.domain.model.valueobjects.FullName;
 
 @Getter
 @Setter
@@ -18,11 +17,12 @@ public class FamilyMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String relationship;
+    private Long linkedResidentId;
 
-    private String relation;
+    @Embedded
+    private FullName fullName;
 
-    private String phoneNumber;
-
-    // Otros campos según tu diseño
+    @Embedded
+    private ContactInfo contactInfo;
 }
