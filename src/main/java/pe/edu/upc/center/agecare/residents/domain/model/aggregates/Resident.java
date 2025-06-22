@@ -117,4 +117,9 @@ public class Resident extends AuditableAbstractAggregateRoot<Resident> {
     public void addMentalHealthRecord(MentalHealthRecord record) {
         this.mentalHealthRecords.add(record);
     }
+
+    public void removeMedicationById(Long medicationId) {
+        this.medication.removeIf(med -> med.getId().equals(medicationId));
+    }
+
 }
