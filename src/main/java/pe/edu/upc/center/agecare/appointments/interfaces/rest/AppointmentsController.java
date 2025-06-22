@@ -1,6 +1,7 @@
 package pe.edu.upc.center.agecare.appointments.interfaces.rest;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,10 @@ public class AppointmentsController {
         this.appointmentQueryService = appointmentQueryService;
         this.appointmentCommandService = appointmentCommandService;
     }
-
+    @Operation(
+            summary = "Crear una nueva cita",
+            description = "Crea una nueva cita médica usando los datos proporcionados en el cuerpo del request."
+    )
     @PostMapping
     public ResponseEntity<AppointmentResource> createAppointment(@RequestBody CreateAppointmentResource resource) {
         var createCommand = CreateAppointmentCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -55,6 +59,10 @@ public class AppointmentsController {
         return new ResponseEntity<>(appointmentResource, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Obtener todas las citas",
+            description = "Retorna una lista con todas las citas médicas registradas en el sistema."
+    )
     @GetMapping
     public ResponseEntity<List<AppointmentResource>> getAllAppointments() {
         var query = new GetAllAppointmentsQuery();
@@ -65,6 +73,10 @@ public class AppointmentsController {
         return ResponseEntity.ok(resources);
     }
 
+    @Operation(
+            summary = "Buscar cita por ID",
+            description = "Busca una cita médica específica según su identificador único."
+    )
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> getAppointmentById(@PathVariable Long appointmentId) {
         var query = new GetAppointmentByIdQuery(appointmentId);
@@ -78,6 +90,10 @@ public class AppointmentsController {
         return ResponseEntity.ok(resource);
     }
 
+    @Operation(
+            summary = "Actualizar una cita",
+            description = "Actualiza la información de una cita específica identificada por su ID."
+    )
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> updateAppointment(@PathVariable Long appointmentId, @RequestBody AppointmentResource resource) {
         var updateCommand = UpdateAppointmentCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -91,6 +107,10 @@ public class AppointmentsController {
         return ResponseEntity.ok(updatedResource);
     }
 
+    @Operation(
+            summary = "Eliminar una cita",
+            description = "Elimina una cita médica del sistema usando su ID."
+    )
     @DeleteMapping("/{appointmentId}")
     public ResponseEntity<?> deleteAppointment(@PathVariable Long appointmentId) {
         var deleteCommand = new DeleteAppointmentCommand(appointmentId);
@@ -98,6 +118,10 @@ public class AppointmentsController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Buscar citas por ID de residente",
+            description = "Devuelve todas las citas médicas asociadas a un residente específico."
+    )
     @GetMapping("/searchByResidentId")
     public ResponseEntity<List<AppointmentResource>> getAppointmentByResidentId(@RequestParam Long residentId) {
         var query = new GetAppointmentByResidentIdQuery(residentId);
@@ -114,6 +138,10 @@ public class AppointmentsController {
         return ResponseEntity.ok(resources);
     }
 
+    @Operation(
+            summary = "Buscar citas por ID de doctor",
+            description = "Devuelve todas las citas médicas que tiene un doctor específico."
+    )
     @GetMapping("/searchByDoctorId")
     public ResponseEntity<List<AppointmentResource>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {
         var query = new GetAppointmentByDoctorIdQuery(doctorId);
