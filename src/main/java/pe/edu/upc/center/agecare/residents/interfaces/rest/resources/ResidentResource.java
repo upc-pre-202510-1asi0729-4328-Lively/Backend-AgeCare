@@ -3,6 +3,7 @@ package pe.edu.upc.center.agecare.residents.interfaces.rest.resources;
 import java.util.Date;
 
 public record ResidentResource(
+        Long id,
         String dni,
         String firstName,
         String lastName,
