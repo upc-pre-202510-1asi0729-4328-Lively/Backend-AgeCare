@@ -5,18 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.center.resident.payment.domain.model.commands.DeleteReceiptCommand;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetAllReceiptsQuery;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByResidentIdQuery;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByDateQuery;
-import pe.edu.upc.center.resident.payment.domain.model.valueobjects.ResidentId;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.DeleteReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptQueryService;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptCommandService;
-import pe.edu.upc.center.resident.payment.interfaces.rest.resources.CreateReceiptResource;
-import pe.edu.upc.center.resident.payment.interfaces.rest.resources.ReceiptResource;
-import pe.edu.upc.center.resident.payment.interfaces.rest.transform.CreateReceiptCommandFromResourceAssembler;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.resources.CreateReceiptResource;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.resources.ReceiptResource;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.transform.CreateReceiptCommandFromResourceAssembler;
 import pe.edu.upc.center.agecare.payment.interfaces.rest.transform.ReceiptResourceFromEntityAssembler;
-import pe.edu.upc.center.resident.payment.interfaces.rest.transform.UpdateReceiptCommandFromResourceAssembler;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.transform.UpdateReceiptCommandFromResourceAssembler;
 
 import java.util.Date;
 import java.util.List;
@@ -65,7 +65,7 @@ public class ReceiptController {
         return ResponseEntity.ok(resources);
     }
 
-    @GetMapping("/{receiptId}")
+    @GetMapping("/{residentId}")
     public ResponseEntity<ReceiptResource> getReceiptByResidentId(@PathVariable Long residentId) {
         var query = new GetReceiptByResidentIdQuery(residentId);
         var optionalReceipt = receiptQueryService.handle(query);

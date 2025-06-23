@@ -1,4 +1,4 @@
-package pe.edu.upc.center.resident.payment.interfaces.rest.resources;
+package pe.edu.upc.center.agecare.payment.interfaces.rest.resources;
 
 import java.util.Date;
 

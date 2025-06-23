@@ -2,9 +2,9 @@ package pe.edu.upc.center.agecare.payment.domain.services;
 
 
 import pe.edu.upc.center.agecare.payment.domain.model.aggregates.Receipt;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetAllReceiptsQuery;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByDateQuery;
-import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByResidentIdQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
 
 import java.util.List;
 import java.util.Optional;
