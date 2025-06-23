@@ -9,6 +9,7 @@ import pe.edu.upc.center.agecare.payment.domain.model.commands.DeleteReceiptComm
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByReceiptIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptQueryService;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptCommandService;
@@ -98,9 +99,9 @@ public class ReceiptController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/searchById")
-    public ResponseEntity<ReceiptResource> getReceiptByDate(@RequestParam Date issueDate) {
-        var query = new GetReceiptByDateQuery(issueDate);
+    @GetMapping("/searchByReceiptId")
+    public ResponseEntity<ReceiptResource> getReceiptByReceiptId(@RequestParam Long receiptId) {
+        var query = new GetReceiptByReceiptIdQuery(receiptId);
         var optionalReceipt = receiptQueryService.handle(query);
 
         if (optionalReceipt.isEmpty()) {
