@@ -1,15 +1,23 @@
 package pe.edu.upc.center.agecare.users.interfaces.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.agecare.users.domain.model.aggregates.FamilyMember;
 import pe.edu.upc.center.agecare.users.domain.services.FamilyMemberCommandService;
 import pe.edu.upc.center.agecare.users.domain.services.FamilyMemberQueryService;
+import pe.edu.upc.center.agecare.users.interfaces.rest.resources.CreateFamilyMemberResource;
+import pe.edu.upc.center.agecare.users.interfaces.rest.resources.FamilyMemberResource;
+import pe.edu.upc.center.agecare.users.interfaces.rest.resources.UpdateFamilyMemberResource;
+import pe.edu.upc.center.agecare.users.interfaces.rest.transform.FamilyMemberResourceAssembler;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/family-members")
+@Tag(name = "FamilyMembers", description = "Operations related to FamilyMembers")
+
 public class FamilyMemberController {
 
     private final FamilyMemberCommandService familyMemberCommandService;
@@ -22,8 +30,12 @@ public class FamilyMemberController {
     }
 
     @PostMapping
-    public ResponseEntity<FamilyMember> createFamilyMember(@RequestBody FamilyMember familyMember) {
-        return ResponseEntity.ok(familyMemberCommandService.createFamilyMember(familyMember));
+    public ResponseEntity<FamilyMemberResource> createFamilyMember(@RequestBody CreateFamilyMemberResource resource) {
+        var familyMember = familyMemberCommandService.createFamilyMember(
+                FamilyMemberResourceAssembler.toEntity(resource)
+        );
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(FamilyMemberResourceAssembler.toResource(familyMember));
     }
 
     @GetMapping
@@ -39,8 +51,14 @@ public class FamilyMemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FamilyMember> updateFamilyMember(@PathVariable Long id, @RequestBody FamilyMember familyMember) {
-        return ResponseEntity.ok(familyMemberCommandService.updateFamilyMember(id, familyMember));
+    public ResponseEntity<FamilyMemberResource> updateFamilyMember(
+            @PathVariable Long id,
+            @RequestBody UpdateFamilyMemberResource resource) {
+
+        FamilyMember updatedFamilyMember = familyMemberCommandService.updateFamilyMember(
+                id, FamilyMemberResourceAssembler.toEntity(resource));
+
+        return ResponseEntity.ok(FamilyMemberResourceAssembler.toResource(updatedFamilyMember));
     }
 
     @DeleteMapping("/{id}")

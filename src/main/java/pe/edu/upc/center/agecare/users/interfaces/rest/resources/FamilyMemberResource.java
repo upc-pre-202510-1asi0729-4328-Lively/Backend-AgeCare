@@ -1,12 +1,12 @@
 package pe.edu.upc.center.agecare.users.interfaces.rest.resources;
 
-import lombok.Data;
+import pe.edu.upc.center.agecare.users.domain.model.valueobjects.ContactInfo;
+import pe.edu.upc.center.agecare.users.domain.model.valueobjects.FullName;
 
-@Data
-public class FamilyMemberResource {
-    private Long id;
-    private String relationship;
-    private Long linkedResidentId;
-    private String fullName;      // Lo exponemos como String
-    private String contactEmail;  // Lo exponemos como String (contactInfo.email)
-}
+public record FamilyMemberResource(
+        Long id,
+        String relationship,
+        Long linkedResidentId,
+        FullName fullName,
+        ContactInfo contactEmail
+) {}
