@@ -1,5 +1,9 @@
 package pe.edu.upc.center.agecare.users.interfaces.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @Tag(name = "Users", description = "Operations related to Users")
-
 public class UserController {
 
     private final UserQueryService userQueryService;
@@ -26,6 +29,15 @@ public class UserController {
         this.userCommandService = userCommandService;
     }
 
+    @Operation(
+            summary = "Retrieve all users",
+            description = "Get a list of all users in the system",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Users retrieved successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserResource.class)))
+            }
+    )
     @GetMapping
     public ResponseEntity<List<UserResource>> getAllUsers() {
         var users = userQueryService.getAllUsers()
@@ -35,6 +47,16 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @Operation(
+            summary = "Retrieve user by ID",
+            description = "Get details of a specific user by their ID",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "User found",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserResource.class))),
+                    @ApiResponse(responseCode = "404", description = "User not found")
+            }
+    )
     @GetMapping("/{id}")
     public ResponseEntity<UserResource> getUserById(@PathVariable Long id) {
         var user = userQueryService.getUserById(id);
@@ -43,22 +65,35 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(
+            summary = "Create a new user",
+            description = "Register a new user in the system",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "User created successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserResource.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input")
+            }
+    )
     @PostMapping
     public ResponseEntity<UserResource> createUser(@RequestBody CreateUserResource createUserResource) {
-        // Convertir CreateUserResource → User (la entidad)
         User user = UserResourceAssembler.toEntity(createUserResource);
-
-        // Guardar el User
         User savedUser = userCommandService.createUser(user);
-
-        // Convertir el User guardado → UserResource (con id y todo)
         UserResource userResource = UserResourceAssembler.toResource(savedUser);
-
-        // Retornar la respuesta
-        return ResponseEntity.ok(userResource);
+        return ResponseEntity.status(201).body(userResource);
     }
 
-
+    @Operation(
+            summary = "Update an existing user",
+            description = "Update the information of an existing user",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "User updated successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = UserResource.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input"),
+                    @ApiResponse(responseCode = "404", description = "User not found")
+            }
+    )
     @PutMapping("/{id}")
     public ResponseEntity<UserResource> updateUser(@PathVariable Long id, @RequestBody CreateUserResource resource) {
         User updatedUser = userCommandService.updateUser(id, UserResourceAssembler.toEntity(resource));
@@ -66,11 +101,17 @@ public class UserController {
         return ResponseEntity.ok(userResource);
     }
 
-
+    @Operation(
+            summary = "Delete a user",
+            description = "Remove a user from the system by their ID",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "User deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "User not found")
+            }
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userCommandService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
-
 }
