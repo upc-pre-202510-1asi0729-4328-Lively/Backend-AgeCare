@@ -1,4 +1,4 @@
-package pe.edu.upc.center.resident.payment.interfaces.rest;
+package pe.edu.upc.center.agecare.payment.interfaces.rest;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -10,12 +10,12 @@ import pe.edu.upc.center.resident.payment.domain.model.queries.GetAllReceiptsQue
 import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByResidentIdQuery;
 import pe.edu.upc.center.resident.payment.domain.model.queries.GetReceiptByDateQuery;
 import pe.edu.upc.center.resident.payment.domain.model.valueobjects.ResidentId;
-import pe.edu.upc.center.resident.payment.domain.services.ReceiptQueryService;
-import pe.edu.upc.center.resident.payment.domain.services.ReceiptCommandService;
+import pe.edu.upc.center.agecare.payment.domain.services.ReceiptQueryService;
+import pe.edu.upc.center.agecare.payment.domain.services.ReceiptCommandService;
 import pe.edu.upc.center.resident.payment.interfaces.rest.resources.CreateReceiptResource;
 import pe.edu.upc.center.resident.payment.interfaces.rest.resources.ReceiptResource;
 import pe.edu.upc.center.resident.payment.interfaces.rest.transform.CreateReceiptCommandFromResourceAssembler;
-import pe.edu.upc.center.resident.payment.interfaces.rest.transform.ReceiptResourceFromEntityAssembler;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.transform.ReceiptResourceFromEntityAssembler;
 import pe.edu.upc.center.resident.payment.interfaces.rest.transform.UpdateReceiptCommandFromResourceAssembler;
 
 import java.util.Date;

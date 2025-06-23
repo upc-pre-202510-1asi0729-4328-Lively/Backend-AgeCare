@@ -1,4 +1,4 @@
-package pe.edu.upc.center.resident.payment.domain.model.aggregates;
+package pe.edu.upc.center.agecare.payment.domain.model.aggregates;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pe.edu.upc.center.resident.payment.domain.model.commands.CreateReceiptCommand;
 import pe.edu.upc.center.resident.payment.domain.model.valueobjects.ResidentId;
-import pe.edu.upc.center.resident.shared.domain.aggregates.AuditableAbstractAggregateRoot;
+import pe.edu.upc.center.agecare.shared.domain.aggregates.AuditableAbstractAggregateRoot;
 
 import java.util.Date;
 
