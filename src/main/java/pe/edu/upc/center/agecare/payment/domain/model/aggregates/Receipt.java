@@ -91,6 +91,8 @@ public class Receipt extends AuditableAbstractAggregateRoot<Receipt> {
 
     //Constructor desde CreatePaymentCommand
 
+
+    public Receipt(){}
     public Receipt(CreateReceiptCommand command){
         this(
                 //command.receiptId(),
