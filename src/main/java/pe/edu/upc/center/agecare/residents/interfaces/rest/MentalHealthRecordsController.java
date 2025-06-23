@@ -18,11 +18,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/residents/{residentId}/mental-health-records")
 @Tag(name = "Mental Health Records", description = "Resident Mental Health Record Management Endpoints")
-public class MentalHealthRecordController {
+public class MentalHealthRecordsController {
 
     private final ResidentRepository residentRepository;
 
-    public MentalHealthRecordController(ResidentRepository residentRepository) {
+    public MentalHealthRecordsController(ResidentRepository residentRepository) {
         this.residentRepository = residentRepository;
     }
 

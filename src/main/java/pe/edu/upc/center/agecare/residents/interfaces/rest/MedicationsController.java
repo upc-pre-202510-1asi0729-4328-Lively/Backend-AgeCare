@@ -18,11 +18,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/residents/{residentId}/medications")
 @Tag(name = "Medications", description = "Medication Management Endpoints")
-public class MedicationController {
+public class MedicationsController {
 
     private final ResidentRepository residentRepository;
 
-    public MedicationController(ResidentRepository residentRepository) {
+    public MedicationsController(ResidentRepository residentRepository) {
         this.residentRepository = residentRepository;
     }
 
