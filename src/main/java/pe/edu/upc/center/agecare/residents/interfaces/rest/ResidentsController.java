@@ -1,5 +1,9 @@
 package pe.edu.upc.center.agecare.residents.interfaces.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +38,29 @@ public class ResidentsController {
         this.residentCommandService = residentCommandService;
     }
 
+    @Operation(
+            summary = "Create a new resident",
+            description = "Register a new resident in the system",
+            operationId = "createResident",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Resident created successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid request data",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = RuntimeException.class)
+                            )
+                    )
+            }
+    )
     @PostMapping
     public ResponseEntity<ResidentResource> createResident(@RequestBody CreateResidentResource resource) {
         var createCommand = CreateResidentCommandFromResourceAssembler.toCommandFromResource(resource);
@@ -54,6 +81,21 @@ public class ResidentsController {
         return new ResponseEntity<>(residentResource, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "Get all residents",
+            description = "Retrieve a list of all residents",
+            operationId = "getAllResidents",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "List of residents retrieved successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentResource.class)
+                            )
+                    )
+            }
+    )
     @GetMapping
     public ResponseEntity<List<ResidentResource>> getAllResidents() {
         var query = new GetAllResidentsQuery();
@@ -64,6 +106,31 @@ public class ResidentsController {
         return ResponseEntity.ok(resources);
     }
 
+    @Operation(
+            summary = "Get a resident by ID",
+            description = "Retrieve a resident's details by their ID",
+            operationId = "getResidentById",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Resident found",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid ID supplied",
+                            content = @Content
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Resident not found",
+                            content = @Content
+                    )
+            }
+    )
     @GetMapping("/{residentId}")
     public ResponseEntity<ResidentResource> getResidentById(@PathVariable Long residentId) {
         var query = new GetResidentByIdQuery(residentId);
@@ -77,6 +144,26 @@ public class ResidentsController {
         return ResponseEntity.ok(resource);
     }
 
+    @Operation(
+            summary = "Update a resident",
+            description = "Update the details of a resident",
+            operationId = "updateResident",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Resident updated successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid request data",
+                            content = @Content
+                    )
+            }
+    )
     @PutMapping("/{residentId}")
     public ResponseEntity<ResidentResource> updateResident(@PathVariable Long residentId, @RequestBody ResidentResource resource) {
         var updateCommand = UpdateResidentCommandFromResourceAssembler.toCommandFromResource(residentId, resource);
@@ -90,6 +177,22 @@ public class ResidentsController {
         return ResponseEntity.ok(updatedResource);
     }
 
+    @Operation(
+            summary = "Delete a resident",
+            description = "Remove a resident from the system",
+            operationId = "deleteResident",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "Resident deleted successfully"
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid ID supplied",
+                            content = @Content
+                    )
+            }
+    )
     @DeleteMapping("/{residentId}")
     public ResponseEntity<?> deleteResident(@PathVariable Long residentId) {
         var deleteCommand = new DeleteResidentCommand(residentId);
@@ -97,6 +200,26 @@ public class ResidentsController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Get a resident by DNI",
+            description = "Retrieve a resident's details by their DNI",
+            operationId = "getResidentByDni",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Resident found",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Resident not found",
+                            content = @Content
+                    )
+            }
+    )
     @GetMapping("/searchByDni")
     public ResponseEntity<ResidentResource> getResidentByDni(@RequestParam String dni) {
         var query = new GetResidentByDniQuery(dni);
