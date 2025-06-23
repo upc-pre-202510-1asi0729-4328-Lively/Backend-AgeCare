@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pe.edu.upc.center.resident.payment.domain.model.commands.CreateReceiptCommand;
-import pe.edu.upc.center.resident.payment.domain.model.valueobjects.ResidentId;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.CreateReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.shared.domain.aggregates.AuditableAbstractAggregateRoot;
 
 import java.util.Date;

@@ -1,8 +1,8 @@
-package pe.edu.upc.center.resident.payment.interfaces.rest.transform;
+package pe.edu.upc.center.agecare.payment.interfaces.rest.transform;
 
-import pe.edu.upc.center.resident.payment.domain.model.commands.CreateReceiptCommand;
-import pe.edu.upc.center.resident.payment.domain.model.valueobjects.ResidentId;
-import pe.edu.upc.center.resident.payment.interfaces.rest.resources.CreateReceiptResource;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.CreateReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
+import pe.edu.upc.center.agecare.payment.interfaces.rest.resources.CreateReceiptResource;
 
 
 public class CreateReceiptCommandFromResourceAssembler {

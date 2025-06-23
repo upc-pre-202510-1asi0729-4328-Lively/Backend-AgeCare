@@ -2,9 +2,9 @@ package pe.edu.upc.center.agecare.payment.application.Internal.commandservices;
 
 import org.springframework.stereotype.Service;
 import pe.edu.upc.center.agecare.payment.domain.model.aggregates.Receipt;
-import pe.edu.upc.center.resident.payment.domain.model.commands.CreateReceiptCommand;
-import pe.edu.upc.center.resident.payment.domain.model.commands.DeleteReceiptCommand;
-import pe.edu.upc.center.resident.payment.domain.model.commands.UpdateReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.CreateReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.DeleteReceiptCommand;
+import pe.edu.upc.center.agecare.payment.domain.model.commands.UpdateReceiptCommand;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptCommandService;
 import pe.edu.upc.center.agecare.payment.infrastructure.persistence.jpa.repositories.ReceiptRepository;
 

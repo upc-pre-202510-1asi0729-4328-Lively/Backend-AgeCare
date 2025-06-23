@@ -1,4 +1,4 @@
-package pe.edu.upc.center.resident.payment.domain.model.commands;
+package pe.edu.upc.center.agecare.payment.domain.model.commands;
 
 public record DeleteReceiptCommand(Long receiptId) {
 }
