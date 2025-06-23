@@ -22,7 +22,7 @@ public class FamilyMemberResourceAssembler {
         familyMember.setRelationship(resource.relationship());
         familyMember.setLinkedResidentId(resource.linkedResidentId());
         familyMember.setFullName(resource.fullName());
-        familyMember.setContactInfo(resource.contactInfo());
+        //familyMember.setContactInfo(resource.contactInfo());
         return familyMember;
     }
 
@@ -31,7 +31,7 @@ public class FamilyMemberResourceAssembler {
         familyMember.setRelationship(resource.relationship());
         familyMember.setLinkedResidentId(resource.linkedResidentId());
         familyMember.setFullName(resource.fullName());
-        familyMember.setContactInfo(resource.contactInfo());
+        //familyMember.setContactInfo(resource.contactInfo());
         return familyMember;
     }
 }
