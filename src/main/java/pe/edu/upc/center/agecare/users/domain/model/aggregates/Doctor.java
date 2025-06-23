@@ -8,6 +8,10 @@ import lombok.Setter;
 import pe.edu.upc.center.agecare.users.domain.model.valueobjects.ContactInfo;
 import pe.edu.upc.center.agecare.users.domain.model.valueobjects.FullName;
 import pe.edu.upc.center.agecare.users.domain.model.valueobjects.Schedule;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "doctors")
 @Getter
@@ -25,8 +29,11 @@ public class Doctor {
     @Column(nullable = false)
     private String specialty;
 
-    @Embedded
-    private Schedule schedule;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "doctor_id")
+    private List<Schedule> schedules = new ArrayList<>();
+
+
 
     @Embedded
     private FullName fullName;

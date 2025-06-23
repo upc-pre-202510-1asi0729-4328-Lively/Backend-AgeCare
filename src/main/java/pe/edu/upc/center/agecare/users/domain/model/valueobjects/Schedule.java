@@ -1,7 +1,9 @@
 package pe.edu.upc.center.agecare.users.domain.model.valueobjects;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,16 +11,20 @@ import lombok.Setter;
 
 import java.time.LocalTime;
 
-@Embeddable
+@Entity
+@Table(name = "schedules")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Schedule {
-    private String day;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Embedded
-    private AppointmentId appointmentId;
+    private String day;
+    private String startTime;
+    private String endTime;
+    private Long appointmentId;
 }
+
