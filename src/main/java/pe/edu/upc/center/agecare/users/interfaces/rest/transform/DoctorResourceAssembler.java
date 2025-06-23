@@ -30,10 +30,10 @@ public class DoctorResourceAssembler {
 
 
     public static Doctor toEntity(UpdateDoctorResource resource, Doctor existing) {
-        existing.setSpecialty(resource.getSpecialty());
-        existing.setSchedule(resource.getSchedule());
-        existing.setFullName(resource.getFullName());
-        existing.setContactInfo(resource.getContactInfo());
+        existing.setSpecialty(resource.specialty());
+        existing.setSchedule(resource.schedule());
+        existing.setFullName(resource.fullName());
+        existing.setContactInfo(resource.contactInfo());
         return existing;
     }
 }
