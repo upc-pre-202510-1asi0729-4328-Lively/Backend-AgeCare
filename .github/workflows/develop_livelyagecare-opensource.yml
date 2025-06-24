@@ -41,7 +41,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -51,6 +54,13 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
       
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0222E921776C487991E33E1846E5C2F4 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C871D6BD1A194390B7CC8F4E0EE88F89 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E1A9CE14C2F34A40BDD6B412BAEF22BF }}
+
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -58,4 +68,4 @@ jobs:
           app-name: 'LivelyAgeCare-OpenSource'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C317A31BC70F409785BE26BC75261B1B }}
+          
