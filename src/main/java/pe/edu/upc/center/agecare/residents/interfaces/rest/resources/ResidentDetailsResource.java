@@ -9,10 +9,10 @@ import java.util.List;
 
 public record ResidentDetailsResource(
         Long id,
-        String name,
-        String lastName,
+        String fullName,
         String dni,
         List<Medication> medications,
         List<MedicalHistory> medicalHistories,
         List<MentalHealthRecord> mentalHealthRecords
 ) {}
+
