@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE })
 @RestController
-@RequestMapping(value = "/api/v1/appointments", produces = MediaType.APPLICATION_JSON_VALUE)    
+@RequestMapping(value = "/api/v1/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Appointments", description = "Appointment Management Endpoints")
 public class AppointmentsController {
 
@@ -35,9 +35,10 @@ public class AppointmentsController {
         this.appointmentQueryService = appointmentQueryService;
         this.appointmentCommandService = appointmentCommandService;
     }
+
     @Operation(
-            summary = "Crear una nueva cita",
-            description = "Crea una nueva cita médica usando los datos proporcionados en el cuerpo del request."
+            summary = "Create a new appointment",
+            description = "Create a new medical appointment using the provided request body."
     )
     @PostMapping
     public ResponseEntity<AppointmentResource> createAppointment(@RequestBody CreateAppointmentResource resource) {
@@ -60,8 +61,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Obtener todas las citas",
-            description = "Retorna una lista con todas las citas médicas registradas en el sistema."
+            summary = "Get all appointments",
+            description = "Retrieve a list of all medical appointments registered in the system."
     )
     @GetMapping
     public ResponseEntity<List<AppointmentResource>> getAllAppointments() {
@@ -74,8 +75,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Buscar cita por ID",
-            description = "Busca una cita médica específica según su identificador único."
+            summary = "Get appointment by ID",
+            description = "Retrieve a specific medical appointment by its unique identifier."
     )
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> getAppointmentById(@PathVariable Long appointmentId) {
@@ -91,8 +92,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Actualizar una cita",
-            description = "Actualiza la información de una cita específica identificada por su ID."
+            summary = "Update an appointment",
+            description = "Update the details of a specific appointment identified by its ID."
     )
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> updateAppointment(@PathVariable Long appointmentId, @RequestBody AppointmentResource resource) {
@@ -108,8 +109,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Eliminar una cita",
-            description = "Elimina una cita médica del sistema usando su ID."
+            summary = "Delete an appointment",
+            description = "Delete a medical appointment from the system using its ID."
     )
     @DeleteMapping("/{appointmentId}")
     public ResponseEntity<?> deleteAppointment(@PathVariable Long appointmentId) {
@@ -119,8 +120,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Buscar citas por ID de residente",
-            description = "Devuelve todas las citas médicas asociadas a un residente específico."
+            summary = "Get appointments by resident ID",
+            description = "Retrieve all medical appointments associated with a specific resident."
     )
     @GetMapping("/searchByResidentId")
     public ResponseEntity<List<AppointmentResource>> getAppointmentByResidentId(@RequestParam Long residentId) {
@@ -139,8 +140,8 @@ public class AppointmentsController {
     }
 
     @Operation(
-            summary = "Buscar citas por ID de doctor",
-            description = "Devuelve todas las citas médicas que tiene un doctor específico."
+            summary = "Get appointments by doctor ID",
+            description = "Retrieve all medical appointments associated with a specific doctor."
     )
     @GetMapping("/searchByDoctorId")
     public ResponseEntity<List<AppointmentResource>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {

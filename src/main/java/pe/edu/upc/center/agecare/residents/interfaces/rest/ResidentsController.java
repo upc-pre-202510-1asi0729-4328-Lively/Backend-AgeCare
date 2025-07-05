@@ -234,6 +234,26 @@ public class ResidentsController {
         return ResponseEntity.ok(resource);
     }
 
+    @Operation(
+            summary = "Get a resident's details",
+            description = "Retrieve detailed information about a resident, including medications, medical histories, and mental health records",
+            operationId = "getResidentDetails",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Resident details retrieved successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentDetailsResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Resident not found",
+                            content = @Content
+                    )
+            }
+    )
     @GetMapping("/{residentId}/details")
     public ResponseEntity<ResidentDetailsResource> getResidentDetails(@PathVariable Long residentId) {
         return residentQueryService.handle(new GetResidentByIdQuery(residentId))
