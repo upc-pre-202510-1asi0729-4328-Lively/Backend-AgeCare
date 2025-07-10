@@ -47,26 +47,45 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
    */
   @Override
   protected void doFilterInternal(@NonNull HttpServletRequest request,
-      @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
-      throws ServletException, IOException {
+                                  @NonNull HttpServletResponse response,
+                                  @NonNull FilterChain filterChain)
+          throws ServletException, IOException {
+
+    LOGGER.info("Request Path: {}", request.getRequestURI());
+
+    String path = request.getRequestURI();
+    LOGGER.info("Request URI: {}", path);
+
+    // Rutas públicas que deben omitirse del filtro
+    if (path.matches("^/api/v1/authentication(/.*)?$")
+            || path.startsWith("/swagger")
+            || path.startsWith("/v3/api-docs")) {
+      LOGGER.info("Public endpoint, skipping filter.");
+      filterChain.doFilter(request, response);
+      return;
+    }
 
     try {
       String token = tokenService.getBearerTokenFrom(request);
-      LOGGER.info("Token: {}", token);
+      LOGGER.info("Extracted token: {}", token);
+
       if (token != null && tokenService.validateToken(token)) {
         String username = tokenService.getUsernameFromToken(token);
         var userDetails = userDetailsService.loadUserByUsername(username);
         SecurityContextHolder.getContext()
-            .setAuthentication(
-                UsernamePasswordAuthenticationTokenBuilder.build(userDetails, request));
-      }
-      else {
-        LOGGER.info("Token is not valid");
+                .setAuthentication(UsernamePasswordAuthenticationTokenBuilder.build(userDetails, request));
+      } else {
+        LOGGER.info("Token is null or invalid");
       }
 
     } catch (Exception e) {
       LOGGER.error("Cannot set user authentication: {}", e.getMessage());
     }
+
+    LOGGER.info("FILTER PASSED");
     filterChain.doFilter(request, response);
   }
+
+
+
 }
