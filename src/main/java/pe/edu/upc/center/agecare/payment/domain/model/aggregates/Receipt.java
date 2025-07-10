@@ -49,7 +49,7 @@ public class Receipt extends AuditableAbstractAggregateRoot<Receipt> {
     private ResidentId residentId;
 
     @Getter
-    @Column(name = "paymentId", nullable = false)
+    @Column(name = "paymentId", nullable = true)
     private Long paymentId;
 
     @Getter
@@ -93,21 +93,21 @@ public class Receipt extends AuditableAbstractAggregateRoot<Receipt> {
 
 
     public Receipt(){}
-    public Receipt(CreateReceiptCommand command){
+    public Receipt(CreateReceiptCommand command) {
         this(
-                //command.receiptId(),
                 command.issueDate(),
-                command.issueDate(),
+                command.dueDate(),
                 command.totalAmount(),
                 command.status(),
-                command.residentId(),
-                command.paymentId(),
+                command.residentId(),       // ✅ Ya es ResidentId
+                command.paymentId(),                 // ✅ ahora correcto
                 command.paymentDate(),
                 command.amountPaid(),
                 command.paymentMethod(),
                 command.type()
         );
     }
+
 
     //Metodo para actualizar info basica
     public void updateInformation(Date issueDate, Date dueDate, Float totalAmount, Boolean status, ResidentId residentId,

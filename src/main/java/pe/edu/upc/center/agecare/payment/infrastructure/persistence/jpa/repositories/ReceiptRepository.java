@@ -12,9 +12,11 @@ import java.util.Optional;
 @Repository
 public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
 
-    boolean existsByResidentId(ResidentId id);
+    boolean existsByResidentId(ResidentId residentId);
 
     boolean existsByIssueDate(Date date);
 
     Optional<Receipt> findByPaymentDate(Date paymentDate);
+    List<Receipt> findByResidentId(ResidentId residentId);
+
 }
