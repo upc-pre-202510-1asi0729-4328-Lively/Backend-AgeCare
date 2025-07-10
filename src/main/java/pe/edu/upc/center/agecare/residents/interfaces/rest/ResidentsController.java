@@ -16,6 +16,7 @@ import pe.edu.upc.center.agecare.residents.domain.model.queries.GetResidentByIdQ
 import pe.edu.upc.center.agecare.residents.domain.services.ResidentCommandService;
 import pe.edu.upc.center.agecare.residents.domain.services.ResidentQueryService;
 import pe.edu.upc.center.agecare.residents.interfaces.rest.resources.CreateResidentResource;
+import pe.edu.upc.center.agecare.residents.interfaces.rest.resources.ResidentDetailsResource;
 import pe.edu.upc.center.agecare.residents.interfaces.rest.resources.ResidentResource;
 import pe.edu.upc.center.agecare.residents.interfaces.rest.transform.CreateResidentCommandFromResourceAssembler;
 import pe.edu.upc.center.agecare.residents.interfaces.rest.transform.ResidentResourceFromEntityAssembler;
@@ -231,6 +232,43 @@ public class ResidentsController {
 
         var resource = ResidentResourceFromEntityAssembler.toResourceFromEntity(optionalResident.get());
         return ResponseEntity.ok(resource);
+    }
+
+    @Operation(
+            summary = "Get a resident's details",
+            description = "Retrieve detailed information about a resident, including medications, medical histories, and mental health records",
+            operationId = "getResidentDetails",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Resident details retrieved successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ResidentDetailsResource.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Resident not found",
+                            content = @Content
+                    )
+            }
+    )
+    @GetMapping("/{residentId}/details")
+    public ResponseEntity<ResidentDetailsResource> getResidentDetails(@PathVariable Long residentId) {
+        return residentQueryService.handle(new GetResidentByIdQuery(residentId))
+                .map(resident -> {
+                    var details = new ResidentDetailsResource(
+                            resident.getId(),
+                            resident.getFullNameAsString(),
+                            resident.getDni(),
+                            resident.getMedication(),
+                            resident.getMedicalHistories(),
+                            resident.getMentalHealthRecords()
+                    );
+                    return ResponseEntity.ok(details);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

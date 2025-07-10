@@ -7,7 +7,7 @@ import pe.edu.upc.center.agecare.users.domain.model.valueobjects.Schedule;
 public record CreateDoctorResource(
         String licenseNumber,
         String specialty,
-        Schedule schedule,
+        //Schedule schedule,
         FullName fullName,
         ContactInfo contactInfo
 ) {}

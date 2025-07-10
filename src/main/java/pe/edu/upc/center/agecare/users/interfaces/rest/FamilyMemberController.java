@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/family-members")
-@Tag(name = "FamilyMembers", description = "Operations related to FamilyMembers")
+@Tag(name = "FamilyMembers", description = "Operations related to Family Members")
 public class FamilyMemberController {
 
     private final FamilyMemberCommandService familyMemberCommandService;

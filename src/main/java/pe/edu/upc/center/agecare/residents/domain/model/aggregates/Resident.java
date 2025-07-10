@@ -130,4 +130,8 @@ public class Resident extends AuditableAbstractAggregateRoot<Resident> {
         this.mentalHealthRecords.removeIf(med -> med.getId().equals(mentalHealthRecordId));
     }
 
+    public String getFullNameAsString() {
+        return fullName.firstName() + " " + fullName.lastName();
+    }
+
 }
