@@ -2,10 +2,11 @@ package pe.edu.upc.center.agecare.payment.application.Internal.queryservices;
 
 import org.springframework.stereotype.Service;
 import pe.edu.upc.center.agecare.payment.domain.model.aggregates.Receipt;
+import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByReceiptIdQuery;
-import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptsByResidentIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptQueryService;
 import pe.edu.upc.center.agecare.payment.infrastructure.persistence.jpa.repositories.ReceiptRepository;
 
@@ -24,8 +25,8 @@ public class ReceiptQueryServiceImpl implements ReceiptQueryService{
     public List<Receipt> handle(GetAllReceiptsQuery query) {return receiptRepository.findAll();}
 
     @Override
-    public Optional<Receipt> handle(GetReceiptByResidentIdQuery query){
-        return receiptRepository.findById(query.id());
+    public List<Receipt> handle(GetReceiptsByResidentIdQuery query) {
+        return receiptRepository.findByResidentId(new ResidentId(query.id()));
     }
 
     @Override
