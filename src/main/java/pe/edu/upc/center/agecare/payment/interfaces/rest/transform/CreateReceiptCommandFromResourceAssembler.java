@@ -7,7 +7,7 @@ import pe.edu.upc.center.agecare.payment.interfaces.rest.resources.CreateReceipt
 
 public class CreateReceiptCommandFromResourceAssembler {
     public static CreateReceiptCommand toCommandFromResource(CreateReceiptResource resource) {
-        ResidentId residentId = new ResidentId(resource.residentID());
+        ResidentId residentId = new ResidentId(resource.residentId()); // ✅ Correcto
 
         return new CreateReceiptCommand(
                 //resource.rec,
@@ -16,7 +16,7 @@ public class CreateReceiptCommandFromResourceAssembler {
                 resource.totalAmount(),
                 resource.status(),
                 residentId,
-                resource.paymentID(),
+                resource.paymentId(),
                 resource.paymentDate(),
                 resource.amountPaid(),
                 resource.paymentMethod(),
