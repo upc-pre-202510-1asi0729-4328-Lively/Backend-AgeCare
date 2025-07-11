@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/notifications")
 @Tag(name = "Notifications", description = "Endpoints for managing notifications")
+@CrossOrigin(origins = "https://8093") // Cambia esto por los orígenes permitidos
 public class NotificationController {
 
     private final NotificationService notificationService;
