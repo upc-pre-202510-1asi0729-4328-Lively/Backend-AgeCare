@@ -77,16 +77,16 @@ public class Receipt extends AuditableAbstractAggregateRoot<Receipt> {
 
     public Receipt(Date issueDate, Date dueDate, Float totalAmount, Boolean status, ResidentId residentId, Long paymentId,
                    Date paymentDate, Float amountPaid, Long paymentMethod, String type){
-     this.issueDate = issueDate;
-     this.dueDate = dueDate;
-     this.totalAmount = totalAmount;
-     this.status = status;
-     this.residentId = residentId;
-     this.paymentId = paymentId;
-     this.paymentDate = paymentDate;
-     this.amountPaid = amountPaid;
-     this.paymentMethod = paymentMethod;
-     this.type = type;
+        this.issueDate = issueDate;
+        this.dueDate = dueDate;
+        this.totalAmount = totalAmount;
+        this.status = status;
+        this.residentId = residentId;
+        this.paymentId = paymentId;
+        this.paymentDate = paymentDate;
+        this.amountPaid = amountPaid;
+        this.paymentMethod = paymentMethod;
+        this.type = type;
     }
 
     //Constructor desde CreatePaymentCommand
@@ -126,7 +126,7 @@ public class Receipt extends AuditableAbstractAggregateRoot<Receipt> {
     }
 
     //public Long getReceiptId() {
-        //return receiptId;
+    //return receiptId;
     //}
 /*
     public Date getDueDate() {
