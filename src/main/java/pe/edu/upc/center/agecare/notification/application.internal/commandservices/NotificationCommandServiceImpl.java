@@ -2,11 +2,13 @@ package pe.edu.upc.center.agecare.notification.application.internal.commandservi
 
 import pe.edu.upc.center.agecare.notification.domain.model.aggregates.Notification;
 import pe.edu.upc.center.agecare.notification.domain.model.commands.CreateNotificationCommand;
-import pe.edu.upc.center.agecare.notification.domain.model.services.NotificationCommandService;
+import pe.edu.upc.center.agecare.notification.domain.services.NotificationCommandService;
 import pe.edu.upc.center.agecare.notification.infrastructure.persistence.jpa.repositories.NotificationRepository;
 import pe.edu.upc.center.agecare.notification.domain.model.exceptions.NotificationNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class NotificationCommandServiceImpl implements NotificationCommandService {
@@ -16,24 +18,23 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
 
     @Override
     public Notification createNotification(CreateNotificationCommand command) {
-        Notification notification = new Notification(
-            command.getId(),
-            command.getType(),
-            command.getContent(),
-            command.getTimestamp(),
-            command.getStatus(),
-            command.getRecipientId(),
-            command.getSenderId(),
-            command.getUserId(),
-            command.getFamilyMemberId()
-        );
+        Notification notification = new Notification();
+        notification.setTitle(command.getTitle());
+        notification.setContent(command.getContent());
+        notification.setCreatedAt(LocalDateTime.now());
+        notification.setUpdatedAt(LocalDateTime.now());
+        notification.setTimestamp(LocalDateTime.now()); // Ensure this line is present
+        notification.setStatus("unread");
+        notification.setUserId(command.getUserId());
+        // Set other fields as necessary
+
         return notificationRepository.save(notification);
     }
 
     @Override
     public Notification deliverNotification(long id) {
         Notification notification = notificationRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Notification not found"));
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
         notification.setStatus("DELIVERED"); // O el status que corresponda
         return notificationRepository.save(notification);
     }
@@ -41,7 +42,7 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
     @Override
     public Notification archiveNotification(long id) {
         Notification notification = notificationRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Notification not found"));
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
         notification.setStatus("ARCHIVED"); // O el status que corresponda
         return notificationRepository.save(notification);
     }
@@ -49,7 +50,7 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
     @Override
     public void deleteById(Long id) {
         Notification notification = notificationRepository.findById(id)
-            .orElseThrow(() -> new NotificationNotFoundException(id));
+                .orElseThrow(() -> new NotificationNotFoundException(id));
         notificationRepository.delete(notification);
     }
 }

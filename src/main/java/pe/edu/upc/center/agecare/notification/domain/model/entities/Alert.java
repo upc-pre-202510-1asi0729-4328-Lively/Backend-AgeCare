@@ -25,14 +25,4 @@ public class Alert {
     public void sendToEmergencyContact() {
         // Logic to send alert to emergency contact
     }
-
-    // Getters and setters omitted for brevity
-
-    // Revisa todos los atributos de la clase Alert.
-    // Marca con @Transient cualquier atributo que sea de tipo personalizado o no básico de JPA.
-    // Ejemplo:
-    // @Transient
-    // private Notification notification;
-    // @Transient
-    // private OtroTipoNoSoportado otroCampo;
 }

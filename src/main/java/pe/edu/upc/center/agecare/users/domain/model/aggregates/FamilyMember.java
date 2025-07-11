@@ -25,4 +25,34 @@ public class FamilyMember {
 
     @Embedded
     private ContactInfo contactInfo;
+
+    // Getter methods
+    public Long getId() {
+        return id;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public Long getLinkedResidentId() {
+        return linkedResidentId;
+    }
+
+    public FullName getFullName() {
+        return fullName;
+    }
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
+
+    // Setter methods
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public void setLinkedResidentId(Long linkedResidentId) {
+        this.linkedResidentId = linkedResidentId;
+    }
 }

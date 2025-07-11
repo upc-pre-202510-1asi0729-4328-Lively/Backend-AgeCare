@@ -14,13 +14,15 @@ import pe.edu.upc.center.agecare.appointments.domain.model.valueobjects.Status;
 import pe.edu.upc.center.agecare.appointments.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.shared.domain.aggregates.AuditableAbstractAggregateRoot;
 
-
 @Entity
 @Table(name = "appointments")
 @Getter
 @NoArgsConstructor
-
 public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Embedded
     @AttributeOverride(name = "residentId", column = @Column(name = "resident_id", nullable = false))
@@ -73,4 +75,13 @@ public class Appointment extends AuditableAbstractAggregateRoot<Appointment> {
         return this;
     }
 
+    // Getter method for id
+    public Long getId() {
+        return id;
+    }
+
+    // Setter method for id (if needed)
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

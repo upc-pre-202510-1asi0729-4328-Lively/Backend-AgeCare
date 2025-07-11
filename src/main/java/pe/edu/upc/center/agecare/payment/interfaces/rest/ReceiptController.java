@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.center.agecare.payment.domain.model.commands.DeleteReceiptCommand;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
-import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptsByResidentIdQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByReceiptIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
@@ -46,7 +46,7 @@ public class ReceiptController {
             return ResponseEntity.badRequest().build();
         }
 
-        var getReceiptByResidentIdQuery = new GetReceiptsByResidentIdQuery(residentId);
+        var getReceiptByResidentIdQuery = new GetReceiptByResidentIdQuery(residentId);
         var receipts = receiptQueryService.handle(getReceiptByResidentIdQuery); // ahora es una lista
 
         if (receipts.isEmpty()) {
@@ -73,7 +73,7 @@ public class ReceiptController {
 
     @GetMapping("/{residentId}")
     public ResponseEntity<List<ReceiptResource>> getReceiptsByResidentId(@PathVariable Long residentId) {
-        var query = new GetReceiptsByResidentIdQuery(residentId); // nombre plural
+        var query = new GetReceiptByResidentIdQuery(residentId); // nombre plural
         var receipts = receiptQueryService.handle(query);         // devuelve List<Receipt>
 
         if (receipts.isEmpty()) {

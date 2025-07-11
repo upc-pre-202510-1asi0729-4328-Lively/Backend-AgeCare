@@ -1,7 +1,7 @@
 package pe.edu.upc.center.agecare.notification.application.internal.queryservices;
 
 import pe.edu.upc.center.agecare.notification.domain.model.aggregates.Notification;
-import pe.edu.upc.center.agecare.notification.domain.model.services.NotificationQueryService;
+import pe.edu.upc.center.agecare.notification.domain.services.NotificationQueryService;
 import pe.edu.upc.center.agecare.notification.infrastructure.persistence.jpa.repositories.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

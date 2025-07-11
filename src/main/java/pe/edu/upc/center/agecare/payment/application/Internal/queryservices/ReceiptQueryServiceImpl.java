@@ -6,7 +6,7 @@ import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.ResidentId;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetAllReceiptsQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByDateQuery;
 import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByReceiptIdQuery;
-import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptsByResidentIdQuery;
+import pe.edu.upc.center.agecare.payment.domain.model.queries.GetReceiptByResidentIdQuery;
 import pe.edu.upc.center.agecare.payment.domain.services.ReceiptQueryService;
 import pe.edu.upc.center.agecare.payment.infrastructure.persistence.jpa.repositories.ReceiptRepository;
 
@@ -25,7 +25,7 @@ public class ReceiptQueryServiceImpl implements ReceiptQueryService{
     public List<Receipt> handle(GetAllReceiptsQuery query) {return receiptRepository.findAll();}
 
     @Override
-    public List<Receipt> handle(GetReceiptsByResidentIdQuery query) {
+    public List<Receipt> handle(GetReceiptByResidentIdQuery query) {
         return receiptRepository.findByResidentId(new ResidentId(query.id()));
     }
 
