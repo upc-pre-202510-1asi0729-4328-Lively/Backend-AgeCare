@@ -46,6 +46,11 @@ public class NotificationServiceImpl implements NotificationService {
             throw new IllegalArgumentException("NotificationDTO cannot be null");
         }
 
+        // Validar que userId no sea null o vacío
+        if (notificationDTO.getUserId() == null || notificationDTO.getUserId().isEmpty()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty");
+        }
+
         Notification notification = new Notification();
         notification.setTitle(notificationDTO.getTitle());
         notification.setContent(notificationDTO.getContent());
