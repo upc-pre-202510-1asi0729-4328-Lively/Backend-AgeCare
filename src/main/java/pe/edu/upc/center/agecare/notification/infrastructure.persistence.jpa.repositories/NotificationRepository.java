@@ -5,8 +5,8 @@ import pe.edu.upc.center.agecare.notification.domain.model.aggregates.Notificati
 import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    List<Notification> findByUserId(long userId);
-    List<Notification> findByRecipientId(Long recipientId);
-    List<Notification> findByStatus(String status);
-    List<Notification> findByRecipientIdAndStatus(Long recipientId, String status);
+    List<Notification> findByRecipientId(Long recipientId); // Ensure this matches the entity field
+    List<Notification> findByUserId(Long userId); // Add this method
+    List<Notification> findByRecipientIdAndStatus(Long recipientId, String status); // Add this method
+    List<Notification> findByStatus(String status); // Add this method
 }
