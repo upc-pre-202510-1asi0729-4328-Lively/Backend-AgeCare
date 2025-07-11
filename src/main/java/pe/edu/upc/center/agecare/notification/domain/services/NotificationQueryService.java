@@ -1,4 +1,4 @@
-package pe.edu.upc.center.agecare.notification.domain.model.services;
+package pe.edu.upc.center.agecare.notification.domain.services;
 
 import pe.edu.upc.center.agecare.notification.domain.model.aggregates.Notification;
 import java.util.List;
