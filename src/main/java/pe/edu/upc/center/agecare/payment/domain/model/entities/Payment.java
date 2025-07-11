@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pe.edu.upc.center.resident.payment.domain.model.valueobjects.PaymentMethod;
+import pe.edu.upc.center.agecare.payment.domain.model.valueobjects.PaymentMethod;
 import pe.edu.upc.center.agecare.payment.domain.model.aggregates.Receipt;
 import pe.edu.upc.center.agecare.shared.domain.entities.AuditableModel;
 

@@ -14,4 +14,4 @@ public record CreateReceiptResource(
         Float amountPaid,
         Long paymentMethod,
         String type
-        ) {}
+) {}
